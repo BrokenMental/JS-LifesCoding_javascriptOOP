@@ -17,6 +17,7 @@ subObj1.superVal = 'sub'; // 자식 객체에서 상속받았던 값을 바꾼�
 console.log('superObj.superVal =>', superObj.superVal); // super
 console.log('subObj1.superVal =>', subObj1.superVal); // sub
 
+// subObj2.__proto__ === superObj // true
 
 var subObj2 = Object.create(superObj);
 subObj2.subVal = 'sub';
@@ -27,4 +28,36 @@ subObj2.superVal = 'sub';
 console.log('superObj.superVal =>', superObj.superVal); // super
 console.log('subObj2.superVal =>', subObj2.superVal); // sub
 
-// subObj2.__proto__ === superObj // true
+
+var kim = {
+    name: 'kim',
+    first:10, second:20,
+    sum:function(){
+        return this.first + this.second;
+    }
+}
+
+// __proto__ 방법
+var lee = {
+    name: 'lee',
+    first:10, second:10,
+    avg:function(){
+        return(this.first + this.second)/2;
+    }
+}
+lee.__proto__ = kim;
+console.log('kim.sum() : ', kim.sum());
+console.log('lee.sum() : ', lee.sum()); // 여기서 사용되는 sum()의 this는 'kim'이 아닌 'lee'를 나타낸다(js의 this는 실행중인 객체를 나타내기 때문).
+console.log('lee.avg() : ', lee.avg());
+
+// Object.creat() 방법
+var ha = Object.create(kim);
+ha.name = 'ha';
+ha.first = 10;
+ha.second = 10;
+ha.avg = function(){
+    return (this.first + this.second)/2;
+}
+
+console.log('ha.sum() : ', ha.sum());
+console.log('ha.avg() : ', ha.avg());
